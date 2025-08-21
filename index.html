@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Venta e Inventario - Smart Jireh</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Smart Jireh - Sistema de Venta e Inventario</h1>
+        <nav>
+            <a href="#" class="nav-link active" data-view="inventory">Inventario</a>
+            <a href="#" class="nav-link" data-view="new-sale">Nueva Venta</a>
+            <a href="#" class="nav-link" data-view="sales-list">Lista de Ventas</a>
+            <a href="#" class="nav-link" data-view="reports">Reportes y Caja</a>
+            <a href="#" class="nav-link" data-view="backup">Respaldo</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Vista de Inventario -->
+        <section id="inventory-view" class="view active-view">
+            <h2>Gestión de Inventario</h2>
+            <button id="add-product-btn">Agregar Nuevo Producto</button>
+            <table id="inventory-table">
+                <thead>
+                    <tr>
+                        <th>IMEI/Código</th>
+                        <th>Marca/Producto</th>
+                        <th>Proveedor</th>
+                        <th>Cantidad</th>
+                        <th>Precio Costo</th>
+                        <th>Precio Venta</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas de inventario se insertarán aquí -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Vista de Nueva Venta -->
+        <section id="new-sale-view" class="view">
+            <h2>Registrar Nueva Venta</h2>
+            <form id="sale-form">
+                <div class="form-grid">
+                    <div>
+                        <label for="customer-name">Nombre del Cliente:</label>
+                        <input type="text" id="customer-name" name="customer_name" value="Cliente General">
+                    </div>
+                    <div>
+                        <label for="customer-phone">Teléfono del Cliente:</label>
+                        <input type="tel" id="customer-phone" name="customer_phone">
+                    </div>
+                </div>
+            </form>
+
+            <div class="add-item-form">
+                <h3>Añadir Producto a la Venta</h3>
+                <select id="sale-product-select"></select>
+                <input type="number" id="sale-quantity" min="1" value="1">
+                <button id="add-to-sale-btn">Añadir</button>
+            </div>
+
+            <h3>Productos en esta Venta</h3>
+            <table id="current-sale-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unit.</th>
+                        <th>Subtotal</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Productos de la venta actual -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3">Total</th>
+                        <th id="sale-total">$0.00</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="complete-sale-btn">Finalizar Venta y Generar Factura</button>
+        </section>
+
+        <!-- Vista de Lista de Ventas -->
+        <section id="sales-list-view" class="view">
+            <h2>Historial de Ventas</h2>
+            <table id="sales-list-table">
+                <thead>
+                    <tr>
+                        <th>ID Venta</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Historial de ventas -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Vista de Reportes -->
+        <section id="reports-view" class="view">
+            <h2>Reportes y Estado de Caja</h2>
+            <div class="form-grid">
+                <div>
+                    <label for="start-date">Fecha de Inicio:</label>
+                    <input type="date" id="start-date" name="start_date">
+                </div>
+                <div>
+                    <label for="end-date">Fecha de Fin:</label>
+                    <input type="date" id="end-date" name="end_date">
+                </div>
+            </div>
+            <button id="generate-report-btn">Generar Reporte</button>
+
+            <div id="report-results" class="report-container">
+                <h3>Resultados</h3>
+                <div class="report-item">
+                    <span>Inversión Total:</span>
+                    <strong id="report-investment">$0.00</strong>
+                </div>
+                <div class="report-item">
+                    <span>Ingresos por Ventas:</span>
+                    <strong id="report-revenue">$0.00</strong>
+                </div>
+                <div class="report-item profit">
+                    <span>Ganancia Neta:</span>
+                    <strong id="report-profit">$0.00</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vista de Respaldo/Restauración -->
+        <section id="backup-view" class="view">
+            <h2>Copia de Seguridad y Restauración</h2>
+            <div class="backup-container">
+                <h3>Descargar Copia de Seguridad</h3>
+                <p>Guarda una copia de todos tus datos (inventario y ventas) en un solo archivo.</p>
+                <a href="api/backup.php?action=download" class="button">Descargar Respaldo</a>
+            </div>
+            <div class="backup-container">
+                <h3>Restaurar desde Copia de Seguridad</h3>
+                <p>Selecciona un archivo de respaldo (.json) para restaurar los datos del sistema.</p>
+                <form id="restore-form" enctype="multipart/form-data">
+                    <input type="file" name="backup_file" accept=".json" required>
+                    <button type="submit">Restaurar Sistema</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para agregar/editar producto -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-title">Agregar Nuevo Producto</h3>
+            <form id="product-form">
+                <input type="hidden" id="product-id" name="id">
+                <label for="product-type">Tipo:</label>
+                <select id="product-type" name="type">
+                    <option value="telefono">Teléfono</option>
+                    <option value="accesorio">Accesorio</option>
+                </select>
+                <label for="product-imei">IMEI/Código:</label>
+                <input type="text" id="product-imei" name="imei" required>
+                <label for="product-brand">Marca/Producto:</label>
+                <input type="text" id="product-brand" name="brand" required>
+                <label for="product-supplier">Proveedor:</label>
+                <input type="text" id="product-supplier" name="supplier">
+                <label for="product-quantity">Cantidad:</label>
+                <input type="number" id="product-quantity" name="quantity" required min="0">
+                <label for="product-cost">Precio Costo (RD$):</label>
+                <input type="number" id="product-cost" name="cost" required min="0" step="0.01">
+                <label for="product-sale-price">Precio Venta (RD$):</label>
+                <input type="number" id="product-sale-price" name="sale_price" required min="0" step="0.01">
+                <button type="submit" id="save-product-btn">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
