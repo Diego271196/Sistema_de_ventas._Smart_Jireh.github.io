@@ -1,0 +1,14 @@
+[
+    {
+        "id": "admin_1",
+        "username": "admin",
+        "password": "$2y$10$SJbvWM8mL.eSxPQYQU\/NuexG.52pyF5kkTghfcb.Fy70bItGq2yLi",
+        "role": "admin"
+    },
+    {
+        "id": "68a7d342eac07",
+        "username": "usuario",
+        "password": "$2y$10$dOrBE6dUKkfCcs9Hjc7APOmd.fONfmgkY5yNhl.RnPBSXO.5kGxOC",
+        "role": "vendedor"
+    }
+]
