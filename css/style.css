@@ -1,0 +1,111 @@
+/* css/style.css */
+
+body {
+    overflow-x: hidden;
+}
+
+#wrapper {
+    display: flex;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+/* Estilos para el logo redondeado */
+.sidebar-heading img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* === Estilos de la barra lateral Profesional (Diseño 3 - Blanco y Azul) === */
+#sidebar-wrapper {
+    background-color: #ffffff; /* Fondo blanco puro */
+    border-right: 1px solid #dee2e6;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    color: #343a40;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+}
+
+#sidebar-wrapper .list-group-item {
+    color: #495057; /* Texto gris oscuro */
+    border: none; /* Sin bordes entre elementos */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    padding: 15px 20px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 4px 10px; /* Margen para separar los elementos */
+}
+
+#sidebar-wrapper .list-group-item:hover,
+#sidebar-wrapper .list-group-item:focus {
+    background-color: #e9f5ff; /* Azul muy claro al pasar el mouse */
+    color: #0056b3; /* Azul oscuro para el texto */
+    text-decoration: none;
+}
+
+#sidebar-wrapper .list-group-item.active {
+    background-color: #007bff; /* Azul primario de Bootstrap */
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar-wrapper .list-group-item i {
+    min-width: 30px;
+    text-align: center;
+    color: #6c757d; /* Iconos en gris secundario */
+    transition: color 0.3s ease;
+}
+
+#sidebar-wrapper .list-group-item:hover i {
+    color: #0056b3; /* Iconos en azul oscuro al pasar el mouse */
+}
+
+.list-group-item.active i {
+    color: #ffffff !important; /* Iconos blancos en el elemento activo */
+}
+
+/* Estilos de impresión */
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
